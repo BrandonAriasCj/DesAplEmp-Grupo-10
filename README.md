@@ -47,7 +47,7 @@ Django ofrece múltiples ventajas, como su arquitectura basada en el patrón MTV
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/usuario/repositorio.git
+   git clone https://github.com/BrandonAriasCj/DesAplEmp-Grupo-10.git
    ```
 2. Instala las dependencias necesarias.
    ```bash
