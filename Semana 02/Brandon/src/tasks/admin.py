@@ -7,3 +7,6 @@ class TaskAdmin(admin.ModelAdmin):
     list_filter = ('status', 'priority')
     search_fields = ('title', 'description')
     date_hierarchy = 'created_date'
+
+
+

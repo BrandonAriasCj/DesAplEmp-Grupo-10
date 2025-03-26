@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Task
+from encargado.models import Encargado  # Importar el modelo de Encargado
 from .forms import TaskForm
 
 def task_list(request):
@@ -28,13 +29,20 @@ def task_create(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)  # No guarda aún, para asignar encargado
+            encargado_id = request.POST.get('encargado')  # Capturar el encargado desde el formulario
+            
+            if encargado_id:  # Si se seleccionó un encargado, asignarlo
+                task.encargado = Encargado.objects.get(id=encargado_id)
+            
+            task.save()  # Guardar la tarea con el encargado asignado
             messages.success(request, 'Task created successfully!')
             return redirect('task_list')
     else:
         form = TaskForm()
     
-    return render(request, 'tasks/task_form.html', {'form': form})
+    encargados = Encargado.objects.all()  # Obtener lista de encargados para el formulario
+    return render(request, 'tasks/task_form.html', {'form': form, 'encargados': encargados})
 
 def task_update(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -42,13 +50,22 @@ def task_update(request, pk):
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)
+            encargado_id = request.POST.get('encargado')
+            
+            if encargado_id:
+                task.encargado = Encargado.objects.get(id=encargado_id)
+            else:
+                task.encargado = None  # Permitir que se desasigne el encargado
+            
+            task.save()
             messages.success(request, 'Task updated successfully!')
             return redirect('task_list')
     else:
         form = TaskForm(instance=task)
     
-    return render(request, 'tasks/task_form.html', {'form': form})
+    encargados = Encargado.objects.all()
+    return render(request, 'tasks/task_form.html', {'form': form, 'encargados': encargados, 'task': task})
 
 def task_delete(request, pk):
     task = get_object_or_404(Task, pk=pk)
