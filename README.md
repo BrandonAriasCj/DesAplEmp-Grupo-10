@@ -1,4 +1,4 @@
-# 🌐 Desarrollo de Aplicaciones en Internet
+# 🌐 Desarrollo de Aplicaciones Empresariales
 
 ## 🧑‍🏫 Docente: Elliot Garamendi
 
