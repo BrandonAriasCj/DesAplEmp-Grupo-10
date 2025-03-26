@@ -1,9 +1,5 @@
 # 🌐 Desarrollo de Aplicaciones en Internet
 
-<p align="center">
-  <img src="https://console.kamatera.com/assets/images/os/os_django.png" width="400">
-</p>
-
 ## 🧑‍🏫 Docente: Elliot Garamendi
 
 
@@ -12,6 +8,10 @@ Bienvenido a nuestro repositorio del curso **Desarrollo de Aplicaciones en Inter
 ## 📌 Descripción
 
 Django ofrece múltiples ventajas, como su arquitectura basada en el patrón MTV (Modelo, Template, Vista), que facilita la separación de lógica y presentación. Además, cuenta con un ORM integrado para gestionar bases de datos sin necesidad de escribir SQL manualmente, una administración automática para la gestión de datos, y un sólido sistema de autenticación y seguridad. Gracias a estas características, Django es ideal para el desarrollo ágil de aplicaciones web robustas y escalables.
+
+<p align="center">
+  <img src="https://console.kamatera.com/assets/images/os/os_django.png" width="300">
+</p>
 
 
 ## 👥 Integrantes del Equipo
