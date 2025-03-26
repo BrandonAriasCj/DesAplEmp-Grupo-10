@@ -1,5 +1,9 @@
 # 🌐 Desarrollo de Aplicaciones en Internet
 
+<p align="center">
+  <img src="https://console.kamatera.com/assets/images/os/os_django.png" width="400">
+</p>
+
 ## 🧑‍🏫 Docente: Elliot Garamendi
 
 
