@@ -3,7 +3,7 @@
 ## 🧑‍🏫 Docente: Elliot Garamendi
 
 
-Bienvenido a nuestro repositorio del curso **Desarrollo de Aplicaciones en Internet**. Aquí encontrarás el código, documentación y recursos utilizados en nuestras prácticas y proyectos. 🚀
+Bienvenido a nuestro repositorio del curso **Desarrollo de Aplicaciones en Empreariales**. Aquí encontrarás el código, documentación y recursos utilizados en nuestras prácticas y proyectos. 🚀
 
 ## 📌 Descripción
 
@@ -30,7 +30,7 @@ Django ofrece múltiples ventajas, como su arquitectura basada en el patrón MTV
 ## 💂🏽‍♂️ Estructura del Repositorio
 
 ```
-📎 Desarrollo_Aplicaciones_Internet
+📎 Desarrollo_Aplicaciones_Empresariales
 ├── 📂 Semana 01 
       ├── Axel
       ├── Brandon
