@@ -49,6 +49,7 @@
                         <th>Priority</th>
                         <th>Status</th>
                         <th>Due Date</th>
+                        <th>Encargado</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -75,6 +76,8 @@
                                 {% endif %}
                             </td>
                             <td>{% if task.due_date %}{{ task.due_date }}{% else %}-{% endif %}</td>
+                            
+                            <td>{% if task.encargado %}{{ task.encargado.usuario.username }}{% else %}No asignado{% endif %}</td>
                             <td>
                                 <div class="btn-group btn-group-sm">
                                     <a href="{% url 'task_update' task.id %}" class="btn btn-outline-primary">Edit</a>

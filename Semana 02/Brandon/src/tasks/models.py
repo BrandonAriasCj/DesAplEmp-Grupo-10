@@ -28,7 +28,8 @@ class Task(models.Model):
         choices=STATUS_CHOICES,
         default='pending'
     )
-    encargado = models.ForeignKey(Encargado, on_delete=models.SET_NULL, null=True, blank=True)
+    encargado = models.ForeignKey('encargado.Encargado', on_delete=models.SET_NULL, null=True, blank=True)
+
     
     def __str__(self):
         return self.title
