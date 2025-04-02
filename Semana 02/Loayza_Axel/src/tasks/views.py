@@ -2,6 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Task
 from .forms import TaskForm
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import TaskSerializer
+
+def task_list_api(request):
+    tasks= Task.objects.all()
+    serializer = TaskSerializer(tasks,manu=True)
+    return Response(serializer)
+
 
 def task_list(request):
     tasks = Task.objects.all()
