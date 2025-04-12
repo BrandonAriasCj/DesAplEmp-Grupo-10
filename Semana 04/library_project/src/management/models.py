@@ -33,3 +33,39 @@ class BookCopy(models.Model):
     
     def __str__(self):
         return f"Copy {self.inventory_number} of {self.book.title}"
+    
+
+class BookLoan(models.Model):
+    """Model for book borrowing records"""
+    copy = models.ForeignKey(BookCopy, on_delete=models.CASCADE, related_name='loans')
+    borrower = models.ForeignKey(LibraryUser, on_delete=models.CASCADE, related_name='loans')
+    checkout_date = models.DateField()
+    due_date = models.DateField()
+    return_date = models.DateField(null=True, blank=True)
+    
+    STATUS_CHOICES = [
+        ('active', 'Active 📚'),
+        ('returned', 'Returned ✅'),
+        ('overdue', 'Overdue ⚠️'),
+        ('lost', 'Lost ❌'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
+    
+    def __str__(self):
+        return f"{self.copy.book.title} borrowed by {self.borrower.username}"
+
+class Reservation(models.Model):
+    """Model for book reservations"""
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reservations')
+    user = models.ForeignKey(LibraryUser, on_delete=models.CASCADE, related_name='reservations')
+    branch = models.ForeignKey(LibraryBranch, on_delete=models.CASCADE, related_name='reservations')
+    request_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=[
+        ('pending', 'Pending ⏳'),
+        ('ready', 'Ready for Pickup ✅'),
+        ('fulfilled', 'Fulfilled 📚'),
+        ('cancelled', 'Cancelled ❌'),
+    ], default='pending')
+    
+    def __str__(self):
+        return f"Reservation of {self.book.title} by {self.user.username}"
