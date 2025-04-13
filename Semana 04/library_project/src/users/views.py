@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from .models import LibraryUser, ReadingList, BookReview
 from django.contrib.auth import login
 from library.models import Book
-from .models import LibraryUser
+from .models import LibraryUser, ReadingList
 from .forms import LibraryUserRegistrationForm
 from django.contrib.auth.views import LoginView
 
@@ -41,3 +41,18 @@ def register(request):
     else:
         form = LibraryUserRegistrationForm()
     return render(request, "users/register.html", {"form": form})
+
+@login_required
+def create_reading_list(request):
+    """Vista para que un usuario cree una nueva lista de lectura"""
+    if request.method == "POST":
+        form = ReadingListForm(request.POST)
+        if form.is_valid():
+            reading_list = form.save(commit=False)
+            reading_list.user = request.user
+            reading_list.save()
+            form.save_m2m()  # Guarda los libros seleccionados
+            return redirect("reading_list_detail", list_id=reading_list.id)
+    else:
+        form = ReadingListForm()
+    return render(request, "users/create_reading_list.html", {"form": form})
