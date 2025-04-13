@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 flex-column">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary display-5">📊 Analítica de Categorías</h2>
+        <p class="text-muted fs-6">Última actualización: <span class="fw-semibold">{{ updated|date:"d M Y H:i" }}</span></p>
+    </div>
+
+    <div class="shadow-lg border-0 rounded-4">
+        <div class="card-header bg-gradient bg-primary text-white py-3 rounded-top-4">
+            <h5 class="mb-0"><i class="bi bi-bar-chart-line-fill me-2"></i>Resumen de Categorías</h5>
+        </div>
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle table-bordered table-striped rounded-3 overflow-hidden">
+                    <thead class="table-primary text-dark text-center">
+                        <tr>
+                            <th scope="col">📚 Categoría</th>
+                            <th scope="col">📘 Total Libros</th>
+                            <th scope="col">👁️ Total Vistas</th>
+                            <th scope="col">⭐ Popularidad</th>
+                            <th scope="col">🕒 Última Actualización</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        {% for entry in analytics_list %}
+                            <tr>
+                                <td class="fw-semibold text-start">
+                                    <i class="bi bi-tag-fill text-primary me-2"></i>{{ entry.category.name }}
+                                </td>
+                                <td><span class="badge bg-info text-dark fs-6">{{ entry.total_books }}</span></td>
+                                <td><span class="badge bg-warning text-dark fs-6">{{ entry.total_views }}</span></td>
+                                <td>
+                                    <span class="badge bg-success fs-6">
+                                        <i class="bi bi-graph-up-arrow me-1"></i>{{ entry.popularity_score|floatformat:2 }}
+                                    </span>
+                                </td>
+                                <td class="text-muted small">{{ entry.last_updated|date:"d M Y H:i" }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-muted py-4">
+                                    <i class="bi bi-emoji-frown fs-4 me-2"></i>No hay datos disponibles por el momento.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

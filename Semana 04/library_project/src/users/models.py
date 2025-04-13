@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from library.models import Book, Category
 
 class LibraryUser(AbstractUser):
@@ -7,6 +7,10 @@ class LibraryUser(AbstractUser):
     bio = models.TextField(blank=True)
     favorite_categories = models.ManyToManyField(Category, blank=True, related_name='fans')
     profile_image = models.ImageField(upload_to='user_profiles/', blank=True)
+
+    # Solución: Agregar related_name para evitar conflictos
+    groups = models.ManyToManyField(Group, related_name="libraryuser_groups")
+    user_permissions = models.ManyToManyField(Permission, related_name="libraryuser_permissions")
 
 class ReadingList(models.Model):
     """Model for user reading lists"""
