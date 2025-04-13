@@ -4,4 +4,31 @@
 <h2>Perfil de {{ user.username }}</h2>
 <img src="{{ user.profile_image.url }}" alt="Foto de perfil">
 <p>Biografía: {{ user.bio }}</p>
+<h3>Acciones rápidas:</h3>
+<a href="{% url 'edit_profile' %}"><button>✏️ Editar perfil</button></a>
+<a href="{% url 'create_reading_list' %}"><button>📚 Crear lista de lectura</button></a>
+<a href="{% url 'book_reviews' %}"><button>⭐ Ver reseñas</button></a>
+<a href="{% url 'borrowing_history' user.id %}"><button>📊 Ver historial de préstamos</button></a>
+<h3>📖 Mis listas de lectura</h3>
+
+{% if user.reading_lists.all %}
+    <div class="list-group">
+        {% for reading_list in user.reading_lists.all %}
+            <div class="list-group-item">
+                <h5>{{ reading_list.name }}</h5>
+                <p>{{ reading_list.description }}</p>
+                <span class="badge bg-{% if reading_list.is_public %}success{% else %}danger{% endif %}">
+                    {% if reading_list.is_public %} Pública {% else %} Privada {% endif %}
+                </span>
+                <div class="mt-2">
+                    <a href="{% url 'edit_reading_list' reading_list.id %}" class="btn btn-warning">✏️ Editar</a>
+                    <a href="{% url 'delete_reading_list' reading_list.id %}" class="btn btn-danger">🗑️ Eliminar</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">Aún no has creado ninguna lista de lectura. 📭</p>
+{% endif %}
+
 {% endblock %}
