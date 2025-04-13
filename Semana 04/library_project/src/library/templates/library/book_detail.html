@@ -42,6 +42,28 @@
             <i class="bi bi-star-fill"></i> Calificar este libro
         </a>
     </div>
+    
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">📚 Agregar a mi lista de lectura</h2>
+        </div>
+        <div class="card-body">
+            {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'add_to_reading_list' book.id %}">
+                    {% csrf_token %}
+                    <select name="reading_list" class="form-select">
+                        {% for list in request.user.reading_lists.all %}
+                            <option value="{{ list.id }}">{{ list.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-success mt-2">Añadir</button>
+                </form>
+            {% else %}
+                <p class="text-muted">Inicia sesión para agregar este libro a tu lista.</p>
+            {% endif %}
+        </div>
+    </div>
+    
 </div>
 
 <div class="card">

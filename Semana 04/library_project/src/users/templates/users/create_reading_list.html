@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center mb-4">📚 Crea tu nueva lista de lectura</h2>
+
+<!-- Formulario de creación -->
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="card p-3">
+        <label for="id_name"><strong>Nombre de la lista:</strong></label>
+        {{ form.name }}
+    </div>
+
+    <div class="card p-3 mt-3">
+        <label for="id_description"><strong>Descripción:</strong></label>
+        {{ form.description }}
+    </div>
+
+    <div class="card p-3 mt-3">
+        <label for="id_is_public"><strong>Privacidad:</strong></label>
+        {{ form.is_public }} <span class="text-muted">🔓 Pública / 🔒 Privada</span>
+    </div>
+
+    <!-- Selección de libros con checkboxes -->
+    <div class="card p-3 mt-3">
+        <h4>📖 Selecciona tus libros</h4>
+        <input type="text" id="bookSearch" class="form-control" placeholder="🔍 Buscar libros...">
+
+        <div id="bookList">
+            {% for book in form.books.field.queryset %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="books" value="{{ book.id }}"
+                        {% if book in form.instance.books.all %} checked {% endif %}>
+                    <label class="form-check-label">
+                        {{ book.title }} ⭐ {{ book.average_rating }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Selección de géneros -->
+    <div class="card p-3 mt-3">
+        <label for="id_genres"><strong>Géneros:</strong></label>
+        {{ form.genres }}
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">💾 Guardar lista</button>
+    <a href="{% url 'user_profile' user.id %}" class="btn btn-secondary mt-3">⬅️ Volver al perfil</a>
+</form>
+
+<script>
+document.getElementById("bookSearch").addEventListener("keyup", function() {
+    let filter = this.value.toLowerCase();
+    document.querySelectorAll("#bookList .form-check").forEach(function(book) {
+        book.style.display = book.textContent.toLowerCase().includes(filter) ? "block" : "none";
+    });
+});
+</script>
+
+{% endblock %}
