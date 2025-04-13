@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Perfil de {{ user.username }}</h2>
+<img src="{{ user.profile_image.url }}" alt="Foto de perfil">
+<p>Biografía: {{ user.bio }}</p>
+<h3>Favoritos:</h3>
+<ul>
+    {% for category in user.favorite_categories.all %}
+        <li>{{ category.name }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
