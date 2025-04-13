@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from library.models import Book, Category
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class LibraryUser(AbstractUser):
     """Extended user model with additional library-related fields"""
@@ -37,3 +38,4 @@ class BookReview(models.Model):
     
     def __str__(self):
         return f"Review of {self.book.title} by {self.user.username}"
+
