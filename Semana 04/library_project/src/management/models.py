@@ -51,8 +51,9 @@ class BookLoan(models.Model):
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
     
-    def __str__(self):
+    def __str__(self): 
         return f"{self.copy.book.title} borrowed by {self.borrower.username}"
+
 
 class Reservation(models.Model):
     """Model for book reservations"""

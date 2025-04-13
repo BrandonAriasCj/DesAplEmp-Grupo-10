@@ -1,8 +1,17 @@
 {% extends 'management/base.html' %}
+
 {% block content %}
-  <h2>Agregar Copia de Libro</h2>
-  <form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-  </form>
+<div class="container mt-4">
+  <div class="card shadow p-4">
+    <h2 class="mb-4 text-primary">Agregar Copia de Libro</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="mt-3 d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">💾 Guardar</button>
+        <a href="{% url 'management_home' %}" class="btn btn-outline-secondary">⬅️ Regresar</a>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}
