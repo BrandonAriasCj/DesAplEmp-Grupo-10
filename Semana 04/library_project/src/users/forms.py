@@ -17,7 +17,11 @@ class LibraryUserEditForm(forms.ModelForm):
 class ReadingListForm(forms.ModelForm):
     class Meta:
         model = ReadingList
-        fields = ['name', 'description', 'books', 'is_public']
+        fields = ["name", "description", "is_public", "books", "genres"]
+        widgets = {
+            "books": forms.SelectMultiple(attrs={"class": "form-control"}),  # 🔹 Selección múltiple
+            "genres": forms.SelectMultiple(attrs={"class": "form-control"}),
+        }
 
 class BookReviewForm(forms.ModelForm):
     class Meta:

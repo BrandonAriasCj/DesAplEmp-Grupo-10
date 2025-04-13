@@ -91,3 +91,5 @@ class Publication(models.Model):
     
     def __str__(self):
         return f"{self.book.title} published by {self.publisher.name} in {self.country}"
+
+

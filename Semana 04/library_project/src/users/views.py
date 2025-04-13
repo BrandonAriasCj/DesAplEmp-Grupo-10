@@ -115,3 +115,71 @@ def create_reading_list(request):
 @login_required
 def custom_redirect(request):
     return redirect(f"/users/profile/{request.user.id}/")
+
+
+@login_required
+def create_reading_list(request):
+    """Crear listas de lectura permitiendo elegir varios libros"""
+    if request.method == "POST":
+        form = ReadingListForm(request.POST)
+        if form.is_valid():
+            reading_list = form.save(commit=False)
+            reading_list.user = request.user
+            reading_list.save()
+            form.save_m2m()  # 🔹 Guarda la selección múltiple
+            return redirect("user_profile", user_id=request.user.id)
+    else:
+        form = ReadingListForm()
+
+    return render(request, "users/create_reading_list.html", {"form": form})
+
+@login_required
+def edit_reading_list(request, list_id):
+    """Editar listas de lectura con checkboxes y búsqueda"""
+    reading_list = get_object_or_404(ReadingList, id=list_id, user=request.user)
+
+    if request.method == "POST":
+        form = ReadingListForm(request.POST, instance=reading_list)
+        if form.is_valid():
+            form.save()
+            return redirect("user_profile", user_id=request.user.id)
+
+    else:
+        form = ReadingListForm(instance=reading_list)
+
+    return render(request, "users/edit_reading_list.html", {"form": form, "reading_list": reading_list})
+
+
+@login_required
+def toggle_book(request, list_id, book_id):
+    """Agregar o quitar libros de una lista con botones dinámicos"""
+    reading_list = get_object_or_404(ReadingList, id=list_id, user=request.user)
+    book = get_object_or_404(Book, id=book_id)
+
+    if book in reading_list.books.all():
+        reading_list.books.remove(book)
+    else:
+        reading_list.books.add(book)
+
+    return redirect("edit_reading_list", list_id=reading_list.id)
+
+
+@login_required
+def delete_reading_list(request, list_id):
+    """Eliminar una lista de lectura"""
+    reading_list = get_object_or_404(ReadingList, id=list_id, user=request.user)
+    reading_list.delete()
+    return redirect("user_profile", user_id=request.user.id)  # 🔹 Redirigir tras eliminar
+
+@login_required
+def add_to_reading_list(request, book_id):
+    """Añadir un libro a una lista de lectura"""
+    book = get_object_or_404(Book, id=book_id)
+
+    if request.method == "POST":
+        list_id = request.POST.get("reading_list")
+        reading_list = get_object_or_404(ReadingList, id=list_id, user=request.user)
+        reading_list.books.add(book)
+        return redirect("book_detail", pk=book.id)
+
+    return redirect("book_detail", pk=book.id)  # 🔹 Redirigir si no se envió POST
