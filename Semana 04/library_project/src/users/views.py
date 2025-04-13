@@ -3,7 +3,8 @@ from .models import LibraryUser, ReadingList, BookReview
 from django.contrib.auth import login
 from library.models import Book
 from .models import LibraryUser, ReadingList
-from .forms import LibraryUserRegistrationForm
+from .forms import LibraryUserRegistrationForm , ReadingListForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 
 
