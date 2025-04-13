@@ -2,7 +2,20 @@ from django.shortcuts import render
 from .models import LibraryBranch, BookCopy, BookLoan, Reservation
 
 def home(request):
-    return render(request, 'management/home.html')
+    branches = LibraryBranch.objects.all()
+    book_copies = BookCopy.objects.select_related('book', 'branch')
+    active_loans = BookLoan.objects.filter(status='active').select_related('copy__book', 'borrower')
+    reservations = Reservation.objects.select_related('book', 'user', 'branch')
+
+    context = {
+        'branches': branches,
+        'book_copies': book_copies,
+        'active_loans': active_loans,
+        'reservations': reservations,
+    }
+
+    return render(request, 'management/home.html', context)
+
 
 def branch_list(request):
     branches = LibraryBranch.objects.all()
