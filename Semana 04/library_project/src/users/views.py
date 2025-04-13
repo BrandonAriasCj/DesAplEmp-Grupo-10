@@ -3,7 +3,7 @@ from .models import LibraryUser, ReadingList, BookReview
 from django.contrib.auth import login
 from library.models import Book
 from .models import LibraryUser, ReadingList
-from .forms import LibraryUserRegistrationForm , ReadingListForm
+from .forms import LibraryUserRegistrationForm , ReadingListForm ,LibraryUserEditForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 
@@ -11,22 +11,48 @@ from django.contrib.auth.views import LoginView
 class CustomLoginView(LoginView):
     template_name = "users/login.html"
 
+@login_required
+def edit_profile(request):
+    """Permitir al usuario editar su perfil"""
+    if request.method == "POST":
+        form = LibraryUserEditForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect(f"/users/profile/{request.user.id}/")  # Redirigir al perfil
+    else:
+        form = LibraryUserEditForm(instance=request.user)
 
+    return render(request, "users/edit_profile.html", {"form": form})
+
+
+@login_required
 def reading_list_view(request, list_id):
-    """Vista para mostrar una lista de lectura específica."""
+    """Vista segura para mostrar una lista de lectura específica"""
     reading_list = get_object_or_404(ReadingList, id=list_id)
+
+    if not reading_list.is_public and request.user != reading_list.user:
+        return redirect(f"/users/profile/{request.user.id}/")  # 🔐 Redirigir si no es dueño
+
     return render(request, "users/reading_list.html", {"reading_list": reading_list})
 
 def book_review_list(request):
-    """Vista para mostrar todas las reseñas de libros."""
-    reviews = BookReview.objects.all()
+    """Vista para mostrar todas las reseñas de libros"""
+    reviews = BookReview.objects.all().order_by("-created_at")  # 🔹 Ordenar por fecha más reciente
     return render(request, "users/book_reviews.html", {"reviews": reviews})
 
+
+@login_required
 def borrowing_history(request, user_id):
-    """Vista para mostrar el historial de préstamos de un usuario"""
+    """Vista segura para mostrar el historial de préstamos de un usuario"""
+    if request.user.id != user_id:
+        return redirect(f"/users/borrowing-history/{request.user.id}/")  # 🔐 Redirigir al historial propio
+
     user = get_object_or_404(LibraryUser, id=user_id)
-    borrowed_books = user.reading_lists.filter(is_public=True)
+    borrowed_books = user.reading_lists.filter(is_public=True)  # Solo listas públicas
+
     return render(request, "users/borrowing_history.html", {"user": user, "borrowed_books": borrowed_books})
+
+
 
 def register(request):
     if request.method == "POST":

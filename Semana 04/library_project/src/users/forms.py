@@ -9,6 +9,11 @@ class LibraryUserRegistrationForm(forms.ModelForm):
         model = LibraryUser
         fields = ["username", "email", "password", "bio", "profile_image"]
 
+class LibraryUserEditForm(forms.ModelForm):
+    class Meta:
+        model = LibraryUser
+        fields = ["bio", "profile_image"]        
+
 class ReadingListForm(forms.ModelForm):
     class Meta:
         model = ReadingList
