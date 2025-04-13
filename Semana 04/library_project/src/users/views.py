@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from .models import LibraryUser, ReadingList, BookReview
+from .models import LibraryUser, ReadingList, BookReview,Book
 from django.contrib.auth import login
 from library.models import Book
 from .models import LibraryUser, ReadingList
-from .forms import LibraryUserRegistrationForm , ReadingListForm ,LibraryUserEditForm
+from .forms import LibraryUserRegistrationForm , ReadingListForm ,LibraryUserEditForm , BookReviewForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 
@@ -67,6 +67,25 @@ def register(request):
         form = LibraryUserRegistrationForm()
     return render(request, "users/register.html", {"form": form})
 
+@login_required
+def submit_review(request, book_id):
+    """Permitir a los usuarios enviar una reseña de un libro"""
+    book = Book.objects.get(id=book_id)
+    
+    if request.method == "POST":
+        form = BookReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.book = book
+            review.save()
+            return redirect("book_detail", pk=book.id)  
+
+
+    else:
+        form = BookReviewForm()
+
+    return render(request, "users/submit_review.html", {"form": form, "book": book})
 
 @login_required
 def user_profile(request, user_id):
