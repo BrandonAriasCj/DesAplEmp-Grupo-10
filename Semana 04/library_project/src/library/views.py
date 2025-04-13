@@ -1,6 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
 from .models import Author, Book, Category, Publisher
+from analytics.models import BookView
+from django.utils.timezone import now
+from datetime import timedelta
+from users.models import LibraryUser
+
 
 def home(request):
     """View for home page with library statistics"""
@@ -35,20 +40,27 @@ def book_list(request):
     books = Book.objects.all().select_related('author').order_by('title')
     return render(request, 'library/book_list.html', {'books': books})
 
+
 def book_detail(request, pk):
-    """View for book details"""
     book = get_object_or_404(Book, pk=pk)
-    # Get all categories for this book 🏷️
     categories = book.categories.all()
-    # Get all publishers for this book with publication details 🏢
     publications = book.publication_set.select_related('publisher').all()
-    
+
+    if request.user.is_authenticated:
+        last_view = BookView.objects.filter(book=book, user=request.user).order_by('-timestamp').first()
+
+        if not last_view or (now() - last_view.timestamp) > timedelta(minutes=10):
+            BookView.objects.create(book=book, user=request.user)
+
     context = {
-        'book': book, 
+        'book': book,
         'categories': categories,
         'publications': publications
     }
+
     return render(request, 'library/book_detail.html', context)
+
+
 
 def category_list(request):
     """View for listing all categories"""
