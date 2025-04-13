@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ reading_list.name }}</h2>
+<p>{{ reading_list.description }}</p>
+<h3>Libros en esta lista:</h3>
+<ul>
+    {% for book in reading_list.books.all %}
+        <li>{{ book.title }} - {{ book.author }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
