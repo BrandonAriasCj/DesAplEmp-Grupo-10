@@ -5,6 +5,8 @@ from .views import register,CustomLoginView
 urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("register/", register, name="register"),
+    path("custom_redirect/", views.custom_redirect, name="custom_redirect"),
+
     path("profile/<int:user_id>/", views.user_profile, name="user_profile"),
     path("reading-list/<int:list_id>/", views.reading_list_view, name="reading_list"),
     path("book-reviews/", views.book_review_list, name="book_reviews"),

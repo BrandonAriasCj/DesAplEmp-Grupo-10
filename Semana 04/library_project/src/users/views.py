@@ -11,10 +11,6 @@ from django.contrib.auth.views import LoginView
 class CustomLoginView(LoginView):
     template_name = "users/login.html"
 
-def user_profile(request, user_id):
-    """Vista del perfil de usuario con favoritos y progreso."""
-    user = get_object_or_404(LibraryUser, id=user_id)
-    return render(request, "users/profile.html", {"user": user})
 
 def reading_list_view(request, list_id):
     """Vista para mostrar una lista de lectura específica."""
@@ -36,12 +32,24 @@ def register(request):
     if request.method == "POST":
         form = LibraryUserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # Iniciar sesión automáticamente después del registro
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data["password"])  # 🔹 Encripta la contraseña
+            user.save()
+            login(request, user)  # 🔹 Inicia sesión automáticamente después de registrarse
             return redirect("user_profile", user_id=user.id)
     else:
         form = LibraryUserRegistrationForm()
     return render(request, "users/register.html", {"form": form})
+
+
+@login_required
+def user_profile(request, user_id):
+    """Vista restringida para que cada usuario solo vea su propio perfil"""
+    if request.user.id != user_id:
+        return redirect(f"/users/profile/{request.user.id}/")  # 🔐 Redirige al perfil del usuario logueado
+
+    user = get_object_or_404(LibraryUser, id=user_id)
+    return render(request, "users/profile.html", {"user": user})
 
 @login_required
 def create_reading_list(request):
@@ -57,3 +65,8 @@ def create_reading_list(request):
     else:
         form = ReadingListForm()
     return render(request, "users/create_reading_list.html", {"form": form})
+
+
+@login_required
+def custom_redirect(request):
+    return redirect(f"/users/profile/{request.user.id}/")
