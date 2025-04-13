@@ -6,6 +6,7 @@
     <p>{{ branch.name }} - {{ branch.address }}</p>
   {% empty %}
     <p>No hay sucursales disponibles.</p>
+    <a href="{% url 'add_branch' %}">➕ Nueva Sucursal</a><br>
   {% endfor %}
 
   <h1>Ejemplares de libros</h1>
@@ -13,6 +14,7 @@
     <p>{{ copy.book.title }} (Condición: {{ copy.condition }})</p>
   {% empty %}
     <p>No hay copias disponibles.</p>
+    <a href="{% url 'add_book_copy' %}">➕ Nueva Copia</a><br>
   {% endfor %}
 
   <h1>Préstamos Activos</h1>
@@ -20,6 +22,7 @@
     <p>{{ loan.borrower.username }} - {{ loan.copy.book.title }} hasta {{ loan.due_date }}</p>
   {% empty %}
     <p>No hay préstamos activos.</p>
+    <a href="{% url 'add_book_loan' %}">➕ Nuevo Préstamo</a><br>
   {% endfor %}
 
   
@@ -28,6 +31,8 @@
   <p>{{ reservation.user.username }} reservó "{{ reservation.book.title }}" en {{ reservation.branch.name }} (Estado: {{ reservation.get_status_display }})</p>
 {% empty %}
   <p>No hay reservas registradas.</p>
+  <a href="{% url 'add_reservation' %}">➕ Nueva Reserva</a>
+
 {% endfor %}
 {% endblock %}
 
