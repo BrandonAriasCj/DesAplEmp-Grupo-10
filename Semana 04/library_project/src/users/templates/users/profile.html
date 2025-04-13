@@ -8,7 +8,6 @@
 <a href="{% url 'edit_profile' %}"><button>✏️ Editar perfil</button></a>
 <a href="{% url 'create_reading_list' %}"><button>📚 Crear lista de lectura</button></a>
 <a href="{% url 'book_reviews' %}"><button>⭐ Ver reseñas</button></a>
-<a href="{% url 'borrowing_history' user.id %}"><button>📊 Ver historial de préstamos</button></a>
 <h3>📖 Mis listas de lectura</h3>
 
 {% if user.reading_lists.all %}
