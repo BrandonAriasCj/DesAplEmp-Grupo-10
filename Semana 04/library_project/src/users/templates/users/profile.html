@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Perfil de {{ user.username }}</h2>
+<h2 >Perfil de {{ user.username }}</h2>
 <img src="{{ user.profile_image.url }}" alt="Foto de perfil">
 <p>Biografía: {{ user.bio }}</p>
-<h3>Acciones rápidas:</h3>
+<h2 id="title">Acciones rápidas:</h2>
 <a href="{% url 'edit_profile' %}"><button>✏️ Editar perfil</button></a>
 <a href="{% url 'create_reading_list' %}"><button>📚 Crear lista de lectura</button></a>
 <a href="{% url 'book_reviews' %}"><button>⭐ Ver reseñas</button></a>
-<h3>📖 Mis listas de lectura</h3>
+
+<h2 id="title" style="font-size: 22px; margin:10 px">📖 Mis listas de lectura</h2>
 
 {% if user.reading_lists.all %}
-    <div class="list-group">
+    <div class="card" id="main-container">
         {% for reading_list in user.reading_lists.all %}
             <div class="list-group-item">
                 <h5>{{ reading_list.name }}</h5>

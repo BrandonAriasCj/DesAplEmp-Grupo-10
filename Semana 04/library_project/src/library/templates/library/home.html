@@ -3,10 +3,10 @@
 {% block title %}Library App - Home{% endblock %}
 
 {% block content %}
-<div class="jumbotron py-5 bg-light rounded">
+<div id="card-header">
     <div class="container text-center">
-        <h1 class="display-4">📚 Welcome to the Library App ✨</h1>
-        <p class="lead">Explore our collection of books, authors, and categories. 🔍</p>
+        <h1 id="title" style="font-size: 60px;">📚 Welcome to the Library App ✨</h1>
+        <p id="title">Explore our collection of books, authors, and categories. 🔍</p>
     </div>
 </div>
 
@@ -52,30 +52,34 @@
 <div class="row mt-4">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5><i class="bi bi-journal-check"></i> Recent Books 📚</h5>
+            <div id="contianer">
+                <h5 id="title"> Recent Books 📚</h5>
+                <hr>
             </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
+            <div id="main-container">
+
                     {% for book in recent_books %}
                         <li class="list-group-item">
                             <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
-                            <small class="text-muted d-block">by {{ book.author.name }}</small>
+                            <br>
+                            <a id="title">by {{ book.author.name }}</a>
                         </li>
                     {% empty %}
                         <li class="list-group-item">No books available yet. 📭</li>
                     {% endfor %}
-                </ul>
+   
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5><i class="bi bi-tags"></i> Popular Categories 🔝</h5>
+            <div id="contianer">
+                <h5 id="title">Popular Categories 🔝</h5>
+                <hr>
             </div>
+
             <div class="card-body">
-                <ul class="list-group list-group-flush">
+                <ul id="main-container">
                     {% for category in categories %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <a href="{% url 'category_detail' category.slug %}">{{ category.name }}</a>
