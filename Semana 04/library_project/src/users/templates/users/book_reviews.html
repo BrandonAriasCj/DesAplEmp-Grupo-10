@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Reseñas de libros</h2>
+<ul>
+    {% for review in reviews %}
+        <li>
+            <strong>{{ review.book.title }}</strong> - {{ review.rating }}⭐
+            <p>{{ review.comment }}</p>
+            <p>Por: {{ review.user.username }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

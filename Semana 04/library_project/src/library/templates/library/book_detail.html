@@ -3,14 +3,21 @@
 {% block title %}{{ book.title }} - Library App{% endblock %}
 
 {% block content %}
-<div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-        <h1 class="mb-0">{{ book.title }} 📖</h1>
+
+<a href="{% url 'book_list' %}" class="btn btn-secondary mt-4">
+    <i class="bi bi-arrow-left"></i> Back to Books
+</a>
+<br>
+<div  id="container">
+    <div id="title">
+        <h1 >{{ book.title }} 📖</h1>
+        <hr>
     </div>
-    <div class="card-body">
-        <h5><strong>Author:</strong> <a href="{% url 'author_detail' book.author.id %}">{{ book.author.name }} ✍️</a></h5>
+    <br>
+    <div class="row" style="color: antiquewhite;">
+        <h5><strong >Author:</strong> <a href="{% url 'author_detail' book.author.id %}">{{ book.author.name }} ✍️</a></h5>
         
-        <p><strong>ISBN:</strong> {{ book.isbn }} 🔢</p>
+        <p><strong >ISBN:</strong> {{ book.isbn }} 🔢</p>
         
         {% if book.publication_date %}
             <p><strong>Publication Date:</strong> {{ book.publication_date }} 📅</p>
@@ -32,43 +39,96 @@
             <p>{{ book.summary }}</p>
         {% endif %}
     </div>
-</div>
+    
+        <a href="{% url 'submit_review' book.id %}" class="btn btn-warning">
+            <i class="bi bi-star-fill"></i> Calificar este libro
+        </a>
 
-<div class="card">
-    <div class="card-header bg-primary text-white">
-        <h2 class="h5 mb-0">🏢 Publishers</h2>
-    </div>
-    <div class="card-body">
-        {% if publications %}
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Publisher 🏢</th>
-                            <th>Country 🌍</th>
-                            <th>Date Published 📅</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for publication in publications %}
+
+    <hr>
+
+    <div id="main-container">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">🏢 Publishers</h2>
+        </div>
+        <div class="card-body">
+            {% if publications %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <td>{{ publication.publisher.name }}</td>
-                                <td>{{ publication.country }}</td>
-                                <td>{{ publication.date_published }}</td>
+                                <th>Publisher 🏢</th>
+                                <th>Country 🌍</th>
+                                <th>Date Published 📅</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for publication in publications %}
+                                <tr>
+                                    <td>{{ publication.publisher.name }}</td>
+                                    <td>{{ publication.country }}</td>
+                                    <td>{{ publication.date_published }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> No publisher information available. 📭
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+
+
+        
+        <div  clas="container">
+            <div >
+                <h2 id="title">📚 Agregar a mi lista ?</h2>
             </div>
-        {% else %}
-            <div class="alert alert-info">
-                <i class="bi bi-info-circle"></i> No publisher information available. 📭
-            </div>
-        {% endif %}
+            
+                {% if request.user.is_authenticated %}
+                    <form method="POST" action="{% url 'add_to_reading_list' book.id %} id="title"">
+                        {% csrf_token %}
+                        <select name="reading_list" class="form-select">
+                            {% for list in request.user.reading_lists.all %}
+                                <option value="{{ list.id }}">{{ list.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-success mt-2">Añadir</button>
+                    </form>
+                {% else %}
+                    <p id="title">Inicia sesión para agregar este libro a tu lista.</p>
+                {% endif %}
+            
+        </div>
+        
+
+
+
+
+
+
+    <div id="container">
+        
+        <h2 id="title">⭐ Reseñas de otros lectores</h2>
+        <br>
+        
+        <div class="card-body">
+            {% for review in book.reviews.all %}
+                <div class="border p-3 mb-2">
+                    <p><strong>{{ review.user.username }}</strong> - {{ review.rating }} ⭐</p>
+                    <p>{{ review.comment }}</p>
+                    <p style="font-size: 12px;">{{ review.created_at }}</p>
+                </div>
+            {% empty %}
+                <p class="text-muted">No hay reseñas aún. ¡Sé el primero en escribir una! 📢</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
-
-<a href="{% url 'book_list' %}" class="btn btn-secondary mt-4">
-    <i class="bi bi-arrow-left"></i> Back to Books
-</a>
 {% endblock %}

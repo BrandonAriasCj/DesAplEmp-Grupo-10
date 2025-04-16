@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from library.models import Book, Category
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class LibraryUser(AbstractUser):
     """Extended user model with additional library-related fields"""
@@ -8,17 +9,22 @@ class LibraryUser(AbstractUser):
     favorite_categories = models.ManyToManyField(Category, blank=True, related_name='fans')
     profile_image = models.ImageField(upload_to='user_profiles/', blank=True)
 
+    # Solución: Agregar related_name para evitar conflictos
+    groups = models.ManyToManyField(Group, related_name="libraryuser_groups")
+    user_permissions = models.ManyToManyField(Permission, related_name="libraryuser_permissions")
+
 class ReadingList(models.Model):
-    """Model for user reading lists"""
-    user = models.ForeignKey(LibraryUser, on_delete=models.CASCADE, related_name='reading_lists')
+    """Model para listas de lectura personalizadas por usuarios"""
+    user = models.ForeignKey(LibraryUser, on_delete=models.CASCADE, related_name="reading_lists")
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    books = models.ManyToManyField(Book, related_name='in_reading_lists')
     is_public = models.BooleanField(default=False)
+    books = models.ManyToManyField(Book, related_name="in_reading_lists", blank=True)
+    genres = models.ManyToManyField(Category, related_name="in_reading_lists", blank=True)  # 🔹 Filtrar por género
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
-        return f"{self.name} by {self.user.username}"
+        return f"{self.name} por {self.user.username}"
 
 class BookReview(models.Model):
     """Model for book reviews by users"""
@@ -33,3 +39,4 @@ class BookReview(models.Model):
     
     def __str__(self):
         return f"Review of {self.book.title} by {self.user.username}"
+

@@ -1,0 +1,142 @@
+{% extends 'management/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h2 class="text-primary"><i class="bi bi-shop"></i> Sucursales</h2>
+      {% if branches %}
+        <div class="list-group">
+          {% for branch in branches %}
+            <div class="list-group-item">
+              <strong>{{ branch.name }}</strong> <span class="text-muted">📍 {{ branch.address }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mt-2">No hay sucursales disponibles.</div>
+      {% endif %}
+      <a href="{% url 'add_branch' %}" class="btn btn-success mt-2"><i class="bi bi-plus-circle"></i> Nueva Sucursal</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h2 class="text-primary"><i class="bi bi-collection"></i> Ejemplares de libros</h2>
+      {% if book_copies %}
+        <div class="list-group">
+          {% for copy in book_copies %}
+            <div class="list-group-item">
+              📘 <strong>{{ copy.book.title }}</strong> 
+              <span class="badge bg-secondary">Condición: {{ copy.condition }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mt-2">No hay copias disponibles.</div>
+      {% endif %}
+      <a href="{% url 'add_book_copy' %}" class="btn btn-success mt-2"><i class="bi bi-plus-circle"></i> Nueva Copia</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Préstamos Activos -->
+    <div class="col-12 mb-4">
+      <h2 class="text-primary"><i class="bi bi-arrow-left-right"></i> Préstamos Activos</h2>
+      {% if active_loans %}
+        <div class="list-group">
+          {% for loan in active_loans %}
+            <div class="list-group-item">
+              👤 {{ loan.borrower.username }} prestó <strong>{{ loan.copy.book.title }}</strong>
+              <span class="text-muted">hasta {{ loan.due_date }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mt-2">No hay préstamos activos.</div>
+      {% endif %}
+    </div>
+  
+    <!-- Préstamos Devueltos -->
+    <div class="col-12 mb-4">
+      <h2 class="text-success"><i class="bi bi-check-circle"></i> Préstamos Devueltos</h2>
+      {% if returned_loans %}
+        <div class="list-group">
+          {% for loan in returned_loans %}
+            <div class="list-group-item">
+              👤 {{ loan.borrower.username }} devolvió <strong>{{ loan.copy.book.title }}</strong> 
+              <span class="text-muted">el {{ loan.return_date }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mt-2">No hay préstamos devueltos.</div>
+      {% endif %}
+    </div>
+  
+    <!-- Préstamos Vencidos -->
+    <div class="col-12 mb-4">
+      <h2 class="text-warning"><i class="bi bi-exclamation-circle"></i> Préstamos Vencidos</h2>
+      {% if overdue_loans %}
+        <div class="list-group">
+          {% for loan in overdue_loans %}
+            <div class="list-group-item">
+              👤 {{ loan.borrower.username }} tiene vencido el préstamo de <strong>{{ loan.copy.book.title }}</strong>
+              <span class="text-muted">desde {{ loan.due_date }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mt-2">No hay préstamos vencidos.</div>
+      {% endif %}
+    </div>
+  
+    <!-- Préstamos Perdidos -->
+    <div class="col-12 mb-4">
+      <h2 class="text-danger"><i class="bi bi-x-circle"></i> Préstamos Perdidos</h2>
+      {% if lost_loans %}
+        <div class="list-group">
+          {% for loan in lost_loans %}
+            <div class="list-group-item">
+              👤 {{ loan.borrower.username }} perdió <strong>{{ loan.copy.book.title }}</strong>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mt-2">No hay préstamos perdidos.</div>
+      {% endif %}
+    </div>
+    
+    <!-- Botón para agregar nuevo préstamo -->
+    <div class="col-12">
+      <a href="{% url 'add_book_loan' %}" class="btn btn-success mt-2">
+        <i class="bi bi-plus-circle"></i> Nuevo Préstamo
+      </a>
+    </div>
+  </div>
+  
+
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h2 class="text-primary"><i class="bi bi-calendar-check"></i> Reservas</h2>
+      {% if reservations %}
+        <div class="list-group">
+          {% for reservation in reservations %}
+            <div class="list-group-item">
+              📖 <strong>{{ reservation.user.username }}</strong> reservó 
+              "<em>{{ reservation.book.title }}</em>" en 
+              <strong>{{ reservation.branch.name }}</strong>
+              <span class="badge bg-info text-dark">Estado: {{ reservation.get_status_display }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-info mt-2">No hay reservas registradas.</div>
+      {% endif %}
+      <a href="{% url 'add_reservation' %}" class="btn btn-success mt-2"><i class="bi bi-plus-circle"></i> Nueva Reserva</a>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

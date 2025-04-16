@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'library'
+    'library',
+    'management',
+    'users',
+    'analytics'
 ]
 
 MIDDLEWARE = [
@@ -84,6 +87,13 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
+
+AUTH_USER_MODEL = "users.LibraryUser"
+LOGIN_REDIRECT_URL = "/users/custom_redirect/"
+
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
