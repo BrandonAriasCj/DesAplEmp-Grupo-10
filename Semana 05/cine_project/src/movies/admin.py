@@ -159,3 +159,24 @@ class RatingAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         """Disable adding ratings through admin"""
         return False
+
+
+from .utils import create_recommendation_admin_view
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    """Admin configuration for user profiles"""
+    list_display = ('user', 'favorite_genre_count', 'rating_count')
+    search_fields = ('user__username',)
+    filter_horizontal = ('favorite_genres', 'favorite_movies')
+    actions = [create_recommendation_admin_view()]
+    
+    def favorite_genre_count(self, obj):
+        """Count favorite genres"""
+        return obj.favorite_genres.count()
+    favorite_genre_count.short_description = "Favorite Genres"
+    
+    def rating_count(self, obj):
+        """Count ratings"""
+        return obj.user.ratings.count()
+    rating_count.short_description = "Ratings"
