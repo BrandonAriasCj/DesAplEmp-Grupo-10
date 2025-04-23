@@ -1,7 +1,7 @@
 {% extends "news/base.html" %}
 
 {% block title %}Home - Django News Portal{% endblock %}
-
+{% load news_extras %}
 {% block content %}
     <h2>Latest News</h2>
     
@@ -50,4 +50,8 @@
             {% endif %}
         </div>
     {% endif %}
+ 
+
+    <p>{{ article.content|truncate_words_html:30 }}</p>
+
 {% endblock %}
