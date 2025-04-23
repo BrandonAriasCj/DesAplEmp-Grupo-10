@@ -43,7 +43,7 @@ class ArticleModelTest(TestCase):
     
     def setUp(self):
         """Set up test data"""
-        # Create user and reporter
+ 
         self.user = User.objects.create_user(
             username="reporter",
             first_name="Jane",
@@ -52,10 +52,9 @@ class ArticleModelTest(TestCase):
         )
         self.reporter = Reporter.objects.create(user=self.user)
         
-        # Create category
+      
         self.category = Category.objects.create(name="Sports")
-        
-        # Create tags
+     
         self.tag1 = Tag.objects.create(name="Football")
         self.tag2 = Tag.objects.create(name="World Cup")
     
