@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -149,3 +150,28 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Panel de Administración",
+    "site_header": "Mi Panel",
+    "welcome_sign": "Bienvenido a la administración",
+    "site_brand": "MiApp",
+
+    # Tema azul claro
+    "theme": "flatly",
+
+    # Colores personalizados opcionales
+    "primary_color": "#2C3E50",  # Azul oscuro
+    "secondary_color": "#18BC9C",  # Verde-azulado (opcional para botones y acentos)
+
+    # Menú de navegación expandido por defecto
+    "navigation_expanded": True,
+
+    # Enlaces en la barra superior
+    "topmenu_links": [
+        {"name": "Inicio", "url": "/", "permissions": ["auth.view_user"]},
+    ],
+}
+
+
