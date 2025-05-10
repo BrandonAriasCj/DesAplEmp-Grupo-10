@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 from django.shortcuts import render
+=======
+>>>>>>> 4670a198dbe00c3e30ad96ee7ff1db76fe40bf5d
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -84,4 +87,8 @@ class QuestionViewSet(viewsets.ModelViewSet):
 class ChoiceViewSet(viewsets.ModelViewSet):
     """ViewSet for Choice model"""
     queryset = Choice.objects.all()
+<<<<<<< HEAD
     serializer_class = ChoiceSerializer
+=======
+    serializer_class = ChoiceSerializer
+>>>>>>> 4670a198dbe00c3e30ad96ee7ff1db76fe40bf5d
