@@ -21,6 +21,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('quizzes.urls')),  # Agregar esto para que /api/ funcione
     path('api/users/', include('users.urls')), 
     path('api-auth/', include('rest_framework.urls')),
 

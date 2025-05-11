@@ -27,7 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import sys
+import os
 
+# Configurar UTF-8 en el entorno
+if sys.version_info[0] < 3:
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
 
 os.environ["PYTHONIOENCODING"] = "utf-8"
 
@@ -132,14 +138,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-import sys
-import os
 
-# Configurar UTF-8 en el entorno
-if sys.version_info[0] < 3:
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
-    
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
