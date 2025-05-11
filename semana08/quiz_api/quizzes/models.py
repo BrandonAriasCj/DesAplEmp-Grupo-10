@@ -1,19 +1,18 @@
 from django.db import models
-
+from categories.models import Category, Tag  # 👈 Importa los modelos nuevos
 
 class Quiz(models.Model):
-    """Model for quizzes"""
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        verbose_name_plural = "quizzes"
-        ordering = ['-created_at']
-    
+
+    # Nuevas relaciones
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='quizzes')
+    tags = models.ManyToManyField(Tag, related_name='quizzes', blank=True)
+
     def __str__(self):
         return self.title
+
 
 
 class Question(models.Model):
