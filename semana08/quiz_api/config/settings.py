@@ -51,8 +51,6 @@ INSTALLED_APPS = [
     'quizzes',
     'categories',
     'users',
-    'categories'
-
 
 ]
 
