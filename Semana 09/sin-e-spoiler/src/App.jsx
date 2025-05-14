@@ -4,10 +4,20 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import MovieList from './components/MovieList';
 import Footer from './components/Footer';
+import PromoBanner from './components/PromoBanner';
 import './css/index.css';
 
 const App = () => {
   // Sample movie data for week 9
+  const promo = {
+  title: "🎟️ 2x1 On Wednesdays!",
+  description: "Enjoy two tickets for the price of one every Wednesday. Only at Sin E Spoiler.",
+  code: "WED2X1",
+  image: "https://files.merca20.com/uploads/2023/11/CINEDOT-BOLETOS-AL-2X1.jpg"
+};
+
+
+
   const movies = [
     {
       id: 1,
@@ -46,11 +56,14 @@ const App = () => {
       <Header />
       <main className="main">
         <Hero />
+        <PromoBanner promo={promo} />
         <MovieList movies={movies} />
       </main>
       <Footer />
     </div>
   );
+
+
 };
 
 export default App;

@@ -1,0 +1,31 @@
+.promo-banner {
+  background-color: var(--secondary-background);
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: calc(var(--size) * 8);
+  margin: calc(var(--size) * 8) 0;
+}
+
+.promo-banner__content {
+  flex: 1;
+  min-width: 250px;
+}
+
+.promo-banner__title {
+  font-size: 1.5rem;
+  margin-bottom: calc(var(--size) * 2);
+}
+
+.promo-banner__description {
+  margin-bottom: calc(var(--size) * 2);
+}
+
+.promo-banner__code {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.promo-banner__image {
+  max-width: 300px;
+  border-radius: var(--border-radius);
+}
