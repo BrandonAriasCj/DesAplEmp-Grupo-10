@@ -15,7 +15,7 @@ const App = () => {
       rating: 4.5,
       genre: "Sci-Fi",
       duration: "169 min",
-      image: "https://via.placeholder.com/300x450/234B96/FEFEFE?text=Interstellar",
+      image: "https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
       description: "A team of explorers travel through a wormhole in space.",
       showTimes: ["2:30 PM", "5:45 PM", "9:00 PM"]
     },
@@ -25,7 +25,7 @@ const App = () => {
       rating: 4.8,
       genre: "Thriller",
       duration: "148 min",
-      image: "https://via.placeholder.com/300x450/23B5E8/FEFEFE?text=Inception",
+      image: "https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg",
       description: "A skilled thief enters people's dreams to steal secrets.",
       showTimes: ["1:00 PM", "4:15 PM", "7:30 PM", "10:45 PM"]
     },
@@ -35,7 +35,7 @@ const App = () => {
       rating: 4.7,
       genre: "Action",
       duration: "136 min",
-      image: "https://via.placeholder.com/300x450/23B58B/FEFEFE?text=Matrix",
+      image: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
       description: "A computer hacker learns about the true nature of reality.",
       showTimes: ["3:00 PM", "6:15 PM", "9:30 PM"]
     }
