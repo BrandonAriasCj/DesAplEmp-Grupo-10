@@ -1,4 +1,3 @@
-// components/Hero.jsx - Hero section with featured content
 import React from 'react';
 
 const Hero = () => {
