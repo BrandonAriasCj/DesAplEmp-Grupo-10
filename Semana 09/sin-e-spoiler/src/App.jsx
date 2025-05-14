@@ -10,9 +10,9 @@ import './css/index.css';
 const App = () => {
   // Sample movie data for week 9
   const promo = {
-  title: "🎟️ 2x1 On Wednesdays!",
-  description: "Enjoy two tickets for the price of one every Wednesday. Only at Sin E Spoiler.",
-  code: "WED2X1",
+  title: "🎟️ 2x1 LOS MARTES-EPICO!!",
+  description: "Disfruta de la promoción , todos los martes compra con tu targeta de credito y obten la promocion de 2x1 con un codigo promocional.",
+  code: "CODIGO: #bajemendi",
   image: "https://files.merca20.com/uploads/2023/11/CINEDOT-BOLETOS-AL-2X1.jpg"
 };
 
