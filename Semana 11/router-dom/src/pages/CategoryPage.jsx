@@ -1,3 +1,5 @@
+import { useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
 import HeaderComponent from "../components/HeaderComponent";
 
 
@@ -9,6 +11,7 @@ function CategoryPage(){
         {cod:4, nom:"Drama"},
       ];
       
+
       return (
         <>
             <HeaderComponent />
