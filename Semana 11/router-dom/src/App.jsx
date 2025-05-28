@@ -17,8 +17,8 @@ function App() {
       <Routes>
         <Route path= "/" element={<LoginPage/>}/>
         <Route path= "/home" element={<HomePage/>}/>
-        <Route path= "/Serie" element={<SeriePage/>} />
-        <Route path= "/Serie/edit/:idserie" element={<SerieFormPage/>} />
+        <Route path= "/series" element={<SeriePage/>} />
+        <Route path= "/serie/edit/:idserie" element={<SerieFormPage/>} />
       </Routes>
     </BrowserRouter>
   );
