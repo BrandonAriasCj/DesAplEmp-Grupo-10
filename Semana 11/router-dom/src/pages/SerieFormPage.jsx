@@ -1,4 +1,4 @@
-import { data, useParams } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import HeaderComponent from "../components/HeaderComponent"
