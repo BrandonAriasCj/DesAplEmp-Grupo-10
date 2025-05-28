@@ -1,32 +1,27 @@
-import { useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom";
+
 function SerieComponent(props) {
-  const navigate = useNavigate();
-  const gotoUrl = (codigo) => {
-    navigate("/series/edit/" + codigo);
-  };
+    return (
+        <div className="card">
+            <img 
+                className="card-img-top" 
+                src={`/images/${props.imagen}`} 
+                alt={props.nombre}
+                />
 
-  // Detectar si imagen es base64 o nombre de archivo
-  const isBase64 = props.imagen?.startsWith("data:image");
-
-  return (
-    <div className="card">
-      <img
-        className="card-img-top"
-        src={isBase64 ? props.imagen : `/images/${props.imagen}`}
-        alt={props.nombre}
-      />
-
-      <div className="card-body">
-        <h5 className="card-title">{props.nombre}</h5>
-        <p className="card-text">{props.categoria}</p>
-        <div className="d-flex justify-content-between">
-          <button onClick={() => gotoUrl(props.codigo)} className="btn btn-secondary">
-            Editar
-          </button>
-          <button className="btn btn-danger">Eliminar</button>
+            <div className="card-body">
+                <h5 className="card-title">{props.nombre}</h5>
+                <p className="card-text">{props.categoria}</p>
+                <div className="d-flex justify-content-between">
+                    <button className="btn btn-secondary"><NavLink 
+                        to={`/serie/edit/${props.codigo}`} 
+                        className="btn btn-secondary text-white text-decoration-none">Editar
+                    </NavLink></button> 
+                    <button className="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+      
   );
 }
 
