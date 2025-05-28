@@ -25,8 +25,13 @@ function SerieFormPage(){
             for(const item of series){
                 if(item.cod==codigo){
                     console.log(item);
-                    document.getElementById('inputName').value =item.nom;
-                    document.getElementById('inputCategory').value = item.cat
+                    const nData = {
+                        cod: item.cod,
+                        nom: item.nom,
+                        cat: item.cat,
+                        img: ''
+                    }
+                    setData(nData);
                     document.getElementById('fileImg').src="https://dummyimage.com/400x250/000/fff&text="+item.img
                     break;
                 }
@@ -69,7 +74,7 @@ function SerieFormPage(){
                         </div>
                         <div className="mb-3">
                             <label htmlFor="inputImage" className="form-label">Imagen</label>
-                            <input type="file" className="form-control" id="inputImage" required />
+                            <input type="file" className="form-control" id="inputImage" />
                         </div>
                         <div className="mb-3">
                             <button className="btn btn-primary">Guardar</button>
