@@ -1,3 +1,4 @@
+import { data, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import HeaderComponent from "../components/HeaderComponent"
@@ -21,6 +22,18 @@ function SerieFormPage(){
 
     const {idserie} = useParams();
     const [data, setData] = useState(initData);
+
+
+    const onChangeNombre = (e)=>{
+        const nData ={...data,nom: e.target.value}
+        setData(nData);
+    };
+
+    const onChangeCategoria =(e)=> {
+        const nData ={...data, cat: e.target.value}
+        setData(nData);
+    };
+
     const setDataForm= (codigo) => {
             for(const item of series){
                 if(item.cod==codigo){
@@ -61,7 +74,7 @@ function SerieFormPage(){
                     <div className="col-md-8">
                         <div className="mb-3">
                             <label htmlFor="inputName" className="form-label">Nombre</label>
-                            <input type="text" className="form-control" id="inputName" required />
+                            <input type="text" onChange={onChangeNombre} className="form-control" id="inputName" required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="inputCategory" className="form-label">Categoria</label>
