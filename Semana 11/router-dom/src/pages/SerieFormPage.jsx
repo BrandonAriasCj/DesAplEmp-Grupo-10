@@ -1,7 +1,14 @@
 import { useEffect } from "react";
 import { data, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import HeaderComponent from "../components/HeaderComponent"
 
+const initData = {
+    cod: '',
+    nom: '',
+    cat: '',
+}
 
 function SerieFormPage(){
 
@@ -27,6 +34,7 @@ function SerieFormPage(){
         setData(nData);
     };
 
+    const [data, setData] = useState(initData);
     const setDataForm= (codigo) => {
             for(const item of series){
                 if(item.cod==codigo){
