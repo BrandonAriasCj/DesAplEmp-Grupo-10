@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { data, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -22,6 +21,7 @@ function SerieFormPage(){
     ];
 
     const {idserie} = useParams();
+    const [data, setData] = useState(initData);
 
 
     const onChangeNombre = (e)=>{
@@ -34,7 +34,6 @@ function SerieFormPage(){
         setData(nData);
     };
 
-    const [data, setData] = useState(initData);
     const setDataForm= (codigo) => {
             for(const item of series){
                 if(item.cod==codigo){
