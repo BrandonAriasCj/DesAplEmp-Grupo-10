@@ -1,19 +1,36 @@
-import HeaderComponent from "../components/HeaderComponent"
-import SerieComponent from "../components/SerieComponent"
-
+import { useState, useEffect } from "react";
+import HeaderComponent from "../components/HeaderComponent";
+import SerieComponent from "../components/SerieComponent";
 
 function SeriePage(){
-    const series = [
-        {cod:1, nom:"Friends", cat:"Comedy", img:"friends.png"},
-        {cod:2, nom:"Law & Order", cat:"Drama", img:"law-and-order.png"},
-        {cod:3, nom:"The Big Bang Theory", cat:"Comedy", img:"the-big-bang.png"},
-        {cod:4, nom:"Stranger Things", cat:"Horror", img:"stranger-things.png"},
-        {cod:5, nom:"Dr. House", cat:"Drama", img:"dr-house.png"},
-        {cod:6, nom:"The X-Files", cat:"Drama", img:"the-x-files.png"},
-      ];
+    const [series, setSeries] = useState([
+        { codigo: 1, nombre: "Friends", categoria: "Comedy", imagen: "friends.jpg" },
+        { codigo: 2, nombre: "Law & Order", categoria: "Drama", imagen: "law-and-order.jpg" },
+        { codigo: 3, nombre: "The Big Bang Theory", categoria: "Comedy", imagen: "tbbt" },
+        { codigo: 4, nombre: "Stranger Things", categoria: "Horror", imagen: "st.jpg" },
+        { codigo: 5, nombre: "Dr. House", categoria: "Drama", imagen: "dr-house.jpg" },
+        { codigo: 6, nombre: "The X-Files", categoria: "Drama", imagen: "the-x-files.jpg" },
+    ]);
+    useEffect(() => {
+        const storedData = localStorage.getItem("serieData");
+        if (storedData) {
+            const newSerie = JSON.parse(storedData);
+            setSeries(prevSeries => {
+                const updatedSeries = prevSeries.map(serie =>
+                    serie.codigo === newSerie.codigo ? newSerie : serie
+                );
+                return updatedSeries;
+            });
+        }
+    }, []);
+    
+        const handleDelete = (codigo) => {
+        const updatedSeries = series.filter(serie => serie.codigo !== codigo);
+        setSeries(updatedSeries);
+        localStorage.setItem("serieData", JSON.stringify(updatedSeries));
+    };
 
-
-      return (
+    return (
         <>
             <HeaderComponent />
             <div className="container mt-3">
@@ -24,21 +41,21 @@ function SeriePage(){
                     </div>
                 </div>
                 <div className="row">
-                    {series.map((serie)=>(
-                    <div key={serie.cod} className="col-md-3 mb-3">
+                    {series.map((serie) => (
+                    <div key={serie.codigo} className="col-md-3 mb-3">
                         <SerieComponent
-                        	codigo={serie.cod}
-                        	nombre={serie.nom}
-                        	categoria={serie.cat}
-                        	imagen={serie.img}
+                            codigo={serie.codigo}
+                            nombre={serie.nombre}
+                            categoria={serie.categoria}
+                            imagen={serie.imagen}
+                            onDelete={handleDelete}
                         />
                     </div>
                     ))}
                 </div>
             </div>
         </>
-      )
+    );
 }
 
-
-export default SeriePage
+export default SeriePage;
