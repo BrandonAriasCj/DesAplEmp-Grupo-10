@@ -38,6 +38,7 @@ if sys.version_info[0] < 3:
 os.environ["PYTHONIOENCODING"] = "utf-8"
 
 # Application definition
+CORS_ALLOW_ALL_ORIGINIS =True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -75,6 +76,7 @@ SIMPLE_JWT = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
