@@ -38,6 +38,7 @@ if sys.version_info[0] < 3:
 os.environ["PYTHONIOENCODING"] = "utf-8"
 
 # Application definition
+CORS_ALLOW_ALL_ORIGINIS =True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
