@@ -1,8 +1,11 @@
-
-from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CategoryViewSet, SeriesViewSet
+
+router = DefaultRouter()
+router.register(r'categories', CategoryViewSet)
+router.register(r'series', SeriesViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('series/api/v1/', include('series.api_urls')),
+    path('', include(router.urls)),  # Esto asegura que las URLs de DRF sean accesibles
 ]
