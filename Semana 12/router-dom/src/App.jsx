@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage.jsx'
 import SeriePage from "./pages/SeriePage.jsx"
 import SerieFormPage from './pages/SerieFormPage.jsx'
 import CategoryPage from './pages/CategoryPage.jsx'
+import CategoryEditFormPage from './pages/category/CategoryEditFormPage.jsx'
 import { BrowserRouter,Routes, Route } from 'react-router-dom'
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path= "/home" element={<HomePage/>}/>
         <Route path= "/series" element={<SeriePage/>} />
         <Route path= "/categories" element={<CategoryPage/>} />
+        <Route path='categories/edit/id' element={<CategoryEditFormPage />}/>
         <Route path= "/serie/edit/:idserie" element={<SerieFormPage/>} />
       </Routes>
     </BrowserRouter>
