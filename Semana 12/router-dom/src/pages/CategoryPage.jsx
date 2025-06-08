@@ -14,8 +14,12 @@ function CategoryPage() {
   const handleEdit = async (id) => {
     navigate(`/categories/edit/${id}`)
   };
-    const handleDelete = async (id) => {
-    navigate(`/categories/delete/${id}`)
+  const handleDelete = async (id) => {
+    if (window.confirm('¿Está seguro de eliminar este registro?')) {
+      await axios.delete(`${urlApi}${id}/`);
+      const nLista = categories.filter(item => item.id !== id);
+      setCategories(nLista);
+    }
   };
 
   const loadData = async () => {
