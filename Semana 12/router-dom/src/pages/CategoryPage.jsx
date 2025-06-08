@@ -7,6 +7,13 @@ function CategoryPage() {
   const urlApi = "http://127.0.0.1:8000/series/api/v1/categories/";
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
+  const loadData = async () =>{
+    const resp = await axios.get(urlApi);
+    console.log(resp.data);
+    setCategories(resp.data);
+  }
+
+
   const categorias = [
     { cod: 1, nom: "Horror" },
     { cod: 2, nom: "Comedy" },
