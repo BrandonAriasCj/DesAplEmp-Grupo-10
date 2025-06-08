@@ -46,6 +46,9 @@ function CategoryPage() {
       <div className="container mt-3">
         <div className="border-bottom pb-3 mb-3">
           <h3>Series por Categorías</h3>
+          <div>
+              <Link className="btn btn-primary" to="/categories/new">Nuevo</Link>
+          </div>
         </div>
 
         <div className="card p-3">
