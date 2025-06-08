@@ -5,6 +5,7 @@ from .serializers import CategorySerializer, SeriesSerializer
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    lookup_field = 'cod'
 
 class SeriesViewSet(viewsets.ModelViewSet):
     queryset = Series.objects.all()
