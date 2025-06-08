@@ -11,7 +11,9 @@ function CategoryPage() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
+  const handleEdit = async (id) => {
+    navigate(`/categories/edit/${id}`)
+  };
   const loadData = async () => {
     try {
       const resp = await axios.get(urlApi);
