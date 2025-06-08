@@ -1,25 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import HeaderComponent from "../components/HeaderComponent";
 import SerieComponent from "../components/SerieComponent";
 
 function CategoryPage() {
   const urlApi = "http://127.0.0.1:8000/series/api/v1/categories/";
+  const [categories, setCategories] = useState([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const loadData = async () =>{
-    const resp = await axios.get(urlApi);
-    console.log(resp.data);
-    setCategories(resp.data);
-  }
+  const loadData = async () => {
+    try {
+      const resp = await axios.get(urlApi);
+      console.log(resp.data);
+      setCategories(resp.data);
+    } catch (error) {
+      console.error('Error al cargar categorías:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-
-  const categorias = [
-    { cod: 1, nom: "Horror" },
-    { cod: 2, nom: "Comedy" },
-    { cod: 3, nom: "Action" },
-    { cod: 4, nom: "Drama" },
-  ];
 
   const series = [
     { cod: 1, nom: "Friends", cat: "Comedy", img: "friends.jpg" },
@@ -34,6 +35,10 @@ function CategoryPage() {
     ? series.filter((serie) => serie.cat === categoriaSeleccionada)
     : series;
 
+  useEffect(() => {
+    loadData();
+  }, []);
+
   return (
     <>
       <HeaderComponent />
@@ -44,26 +49,34 @@ function CategoryPage() {
 
         <div className="card p-3">
           <h4 className="text-center">Selecciona una Categoría</h4>
-          <div className="d-flex justify-content-around flex-wrap">
-            <span
-              key="all"
-              className={`fw-bold text-dark px-3 py-2 ${categoriaSeleccionada === null ? "bg-light rounded" : ""}`}
-              onClick={() => setCategoriaSeleccionada(null)}
-              style={{ cursor: "pointer" }}
-            >
-              Todas
-            </span>
-            {categorias.map((cat) => (
+          {loading ? (
+            <div className="text-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+          ) : (
+            <div className="d-flex justify-content-around flex-wrap">
               <span
-                key={cat.cod}
-                className={`fw-bold text-primary px-3 py-2 ${categoriaSeleccionada === cat.nom ? "bg-light rounded" : ""}`}
-                onClick={() => setCategoriaSeleccionada(cat.nom)}
+                key="all"
+                className={`fw-bold text-dark px-3 py-2 ${categoriaSeleccionada === null ? "bg-light rounded" : ""}`}
+                onClick={() => setCategoriaSeleccionada(null)}
                 style={{ cursor: "pointer" }}
               >
-                {cat.nom}
+                Todas
               </span>
-            ))}
-          </div>
+              {categories.map((cat) => (
+                <span
+                  key={cat.id}
+                  className={`fw-bold text-primary px-3 py-2 ${categoriaSeleccionada === cat.nom ? "bg-light rounded" : ""}`}
+                  onClick={() => setCategoriaSeleccionada(cat.nom)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {cat.nom}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="mt-4">
