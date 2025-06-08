@@ -1,8 +1,10 @@
 import { useState } from "react";
+import axios from "axios";
 import HeaderComponent from "../components/HeaderComponent";
 import SerieComponent from "../components/SerieComponent";
 
-function SeriePage() {
+function CategoryPage() {
+  const urlApi = "http://127.0.0.1:8000/series/api/v1/categories/";
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
   const categorias = [
@@ -79,4 +81,4 @@ function SeriePage() {
   );
 }
 
-export default SeriePage;
+export default CategoryPage;
