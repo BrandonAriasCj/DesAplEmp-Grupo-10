@@ -14,6 +14,10 @@ function CategoryPage() {
   const handleEdit = async (id) => {
     navigate(`/categories/edit/${id}`)
   };
+    const handleDelete = async (id) => {
+    navigate(`/categories/delete/${id}`)
+  };
+
   const loadData = async () => {
     try {
       const resp = await axios.get(urlApi);
@@ -73,6 +77,7 @@ function CategoryPage() {
               >
                 Todas
               </span>
+
               {categories.map((cat) => (
                 <span
                   key={cat.id}
@@ -87,23 +92,32 @@ function CategoryPage() {
           )}
         </div>
 
-        <div className="mt-4">
-          <h4 className="text-center">
-            {categoriaSeleccionada ? `Series en ${categoriaSeleccionada}` : "Todas las Series"}
-          </h4>
-          <div className="row">
-            {seriesFiltradas.map((serie) => (
-              <div key={serie.cod} className="col-md-3 mb-3">
-                <SerieComponent
-                  codigo={serie.cod}
-                  nombre={serie.nom}
-                  categoria={serie.cat}
-                  imagen={serie.img}
-                />
-              </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th className="text-center">Id</th>
+              <th className="text-center" style={{ width: "100px" }}>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.map((item) => (
+              <tr key={item.id}>
+                <td>{item.description}</td>
+                <td className="text-center">{item.id}</td>
+                <td className="text-center">
+                  <button onClick={() => handleEdit(item.id)} className="btn btn-secondary me-2 btn-sm">
+                    <i className="bi bi-pencil-square"></i>
+                  </button>
+                  <button onClick={() => handleDelete(item.id)} className="btn btn-danger btn-sm">
+                    <i className="bi bi-trash-fill"></i>
+                  </button>
+                </td>
+
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </>
   );
