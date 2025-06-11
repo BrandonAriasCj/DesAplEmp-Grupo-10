@@ -5,7 +5,7 @@ import './App.css'
 import LoginPage from './pages/LoginPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import SeriePage from "./pages/SeriePage.jsx"
-import SerieFormPage from './pages/SerieFormPage.jsx'
+import SerieFormPage from './pages/series/SerieFormPage.jsx'
 import CategoryPage from './pages/CategoryPage.jsx'
 import CategoryFormPage from './pages/category/CategoryFormPage.jsx';
 import CategoryEditFormPage from './pages/category/CategoryEditFormPage.jsx'
