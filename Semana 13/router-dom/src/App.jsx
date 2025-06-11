@@ -24,7 +24,7 @@ function App() {
         <Route path= "/categories" element={<CategoryPage/>} />
         <Route path="/categories/new" element={<CategoryFormPage/>}/>
         <Route path='/categories/edit/:cod' element={<CategoryEditFormPage />}/>
-        <Route path= "/serie/edit/:idserie" element={<SerieFormPage/>} />
+        <Route path= "/series/new" element={<SerieFormPage/>} />
       </Routes>
     </BrowserRouter>
   );

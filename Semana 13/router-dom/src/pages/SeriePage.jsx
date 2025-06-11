@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import {Link} from "react-router-dom";
 import HeaderComponent from "../components/HeaderComponent" 
 import SerieComponent from "../components/SerieComponent" 
 import { getAllSerieService } from "../services/SerieServices";
@@ -16,13 +17,14 @@ function SeriePage(){
     }, []);
 
     return (
-        <>
+    <>
     <HeaderComponent />
     <div className="container mt-3">
         <div className="d-flex justify-content-between border-bottom pb-3 mb-3"> 
             <h3>Series</h3>
             <div>
-                <a className="btn btn-primary" href="#">Nuevo</a> </div>
+                <Link className="btn btn-primary" to="/series/new">Nuevo</Link>
+        </div>
         </div>
     <div className="row">
         {series.map((serie)=>(

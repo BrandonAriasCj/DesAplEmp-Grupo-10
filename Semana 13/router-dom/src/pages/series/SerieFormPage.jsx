@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import HeaderComponent from "../../components/HeaderComponent";
-import { getAllCategoryService } from "../../services/CategoryService";
-import { createSerieService } from "../../services/SerieService";
+import { createSerieService } from "../../services/SerieServices";
 
 const initData = {
     cod: '',
