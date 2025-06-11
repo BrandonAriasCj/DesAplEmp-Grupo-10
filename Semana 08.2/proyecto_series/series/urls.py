@@ -7,5 +7,5 @@ router.register(r'categories', CategoryViewSet)
 router.register(r'series', SeriesViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),  # Esto asegura que las URLs de DRF sean accesibles
+    path('', include(router.urls)),  
 ]

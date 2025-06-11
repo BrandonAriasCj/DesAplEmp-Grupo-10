@@ -10,3 +10,4 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class SeriesViewSet(viewsets.ModelViewSet):
     queryset = Series.objects.all()
     serializer_class = SeriesSerializer
+    lookup_field = 'cod'
