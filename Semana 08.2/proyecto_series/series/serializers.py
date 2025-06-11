@@ -12,3 +12,4 @@ class SeriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Series
         fields = ['cod', 'nom', 'cat', 'img']
+
