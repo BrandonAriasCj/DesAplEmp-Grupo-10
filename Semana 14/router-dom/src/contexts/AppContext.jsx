@@ -4,7 +4,7 @@ const AppContext = React.createContext();
 const { Provider } = AppContext;
 
 function AppProvider({ children }) {
-  const [usuario, setUsuario] = useState(() => localStorage.getItem('usuario') || null);
+  const [usuario, setUsuario] = useState(() => localStorage.getItem('usuario'));
 
   function login(data) {
     if (data?.username) {

@@ -1,7 +1,7 @@
 import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
-
+import { loginService } from "../services/LoginService";
 const initData={
     username: '',
     password:'',
@@ -26,8 +26,15 @@ function LoginPage(){
     
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        login(data);
-        navigate("/series");
+
+        try{
+            const resp = await loginService(data);
+            console.log(resp.data);
+            login(resp.data);
+            navigate("/series");
+        }catch(error){
+            window.alert('El usuario o contraseña no son correctos')
+        }
     }
 
 
@@ -41,8 +48,8 @@ function LoginPage(){
                                 <h1 className="fs-4 card-title fw-bold mb-4">Login</h1>
                                 <form onSubmit={handleSubmit} autoComplete="off">
                                     <div className="mb-3">
-                                        <label className="mb-2 text-muted" htmlFor="email">E-Mail</label>
-                                        <input id="email" type="email" className="form-control" name="email" required autoFocus />
+                                        <label className="mb-2 text-muted" htmlFor="email">Usuario</label>
+                                        <input id="email" type="email" className="form-control" name="text" required autoFocus />
                                     </div>
                                     <div className="mb-3">
                                         <div className="mb-2 w-100">
