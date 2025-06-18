@@ -8,4 +8,5 @@ router.register(r'series', SeriesViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),  
+    path('api/v1/login/', views.LoginView.as_view(), name='login'),
 ]
