@@ -1,11 +1,32 @@
+import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../contexts/AppContext";
 
+const initData={
+    username: '',
+    password:'',
+}
 
 function LoginPage(){
     const navigate = useNavigate();
+
+    const {login} = useContext(AppContext);
+    const {data,setData} = useState(initData)
+
+
+    const onChangeUsername =(e)=>{
+        const nData ={...data,username: e.target.value}
+        setData(nData);
+    };
+    const onChangePassword =(e)=> {
+        const nData ={...data,password:e.target.value}
+        setData(nData);
+
+    }
     
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        login(data);
         navigate("/series");
     }
 
