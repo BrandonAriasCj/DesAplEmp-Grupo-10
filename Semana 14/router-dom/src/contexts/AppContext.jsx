@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const AppContext = React.createContext();
 const { Provider } = AppContext;
 
 function AppProvider({ children }) {
-  const [usuario, setUsuario] = useState(localStorage.usuario);
+  const [usuario, setUsuario] = useState(() => localStorage.getItem('usuario') || null);
 
   function login(data) {
-    setUsuario(data.username);
-    localStorage.usuario= data.username;
+    if (data?.username) {
+      setUsuario(data.username);
+      localStorage.setItem('usuario', data.username);
+    }
   }
 
   function logout() {

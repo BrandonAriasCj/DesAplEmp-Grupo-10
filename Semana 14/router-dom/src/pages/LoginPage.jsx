@@ -11,7 +11,7 @@ function LoginPage(){
     const navigate = useNavigate();
 
     const {login} = useContext(AppContext);
-    const {data,setData} = useState(initData)
+    const [data,setData] = useState(initData)
 
 
     const onChangeUsername =(e)=>{
