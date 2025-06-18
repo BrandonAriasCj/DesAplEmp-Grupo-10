@@ -1,6 +1,6 @@
 import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../contexts/AppContext";
+
 import { loginService } from "../services/LoginService";
 const initData={
     username: '',
@@ -10,7 +10,6 @@ const initData={
 function LoginPage(){
     const navigate = useNavigate();
 
-    const {login} = useContext(AppContext);
     const [data,setData] = useState(initData)
 
 
