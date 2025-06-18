@@ -29,7 +29,8 @@ function LoginPage(){
 
         try{
             const resp = await loginService(data);
-            console.log(resp.data);
+            console.log(resp.data, "adsfasd");
+            console.log(resp.data, "asdfasdf");
             login(resp.data);
             navigate("/series");
         }catch(error){
