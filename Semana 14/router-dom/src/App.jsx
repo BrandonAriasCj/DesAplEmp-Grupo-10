@@ -21,14 +21,14 @@ function App() {
 
       <Routes>
           <Route path= "/" element={<LoginPage/>}/>
-          <AuthProvider>
-          <Route path= "/home" element={ <HomePage/>}/>
-          <Route path= "/series" element={<SeriePage/>} />
-          <Route path= "/categories" element={<CategoryPage/>} />
-          <Route path="/categories/new" element={<CategoryFormPage/>}/>
-          <Route path='/categories/edit/:cod' element={<CategoryEditFormPage />}/>
-          <Route path= "/series/new" element={<SerieFormPage/>} />
-          </AuthProvider>
+    
+          <Route path= "/home" element={ <AuthProvider><HomePage/> </AuthProvider>}/>
+          <Route path= "/series" element={<AuthProvider><SeriePage/> </AuthProvider>} />
+          <Route path= "/categories" element={<AuthProvider><CategoryPage/> </AuthProvider>} />
+          <Route path="/categories/new" element={<AuthProvider><CategoryFormPage/> </AuthProvider>}/>
+          <Route path='/categories/edit/:cod' element={<AuthProvider><CategoryEditFormPage /> </AuthProvider>}/>
+          <Route path= "/series/new" element={<AuthProvider><SerieFormPage/> </AuthProvider>}/>
+
         </Routes>
     </BrowserRouter>
   );
