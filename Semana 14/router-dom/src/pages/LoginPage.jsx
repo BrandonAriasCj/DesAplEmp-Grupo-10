@@ -48,8 +48,8 @@ function LoginPage(){
                                 <h1 className="fs-4 card-title fw-bold mb-4">Login</h1>
                                 <form onSubmit={handleSubmit} autoComplete="off">
                                     <div className="mb-3">
-                                        <label className="mb-2 text-muted" htmlFor="email">Usuario</label>
-                                        <input id="email" type="email" className="form-control" name="text" required autoFocus />
+                                        <label className="mb-2 text-muted" htmlFor="username">Usuario</label>
+                                        <input onChange={onChangeUsername} id="username" type="text" className="form-control" name="username" required autoFocus />
                                     </div>
                                     <div className="mb-3">
                                         <div className="mb-2 w-100">
@@ -58,7 +58,7 @@ function LoginPage(){
                                                 Recuperar Contraseña?
                                             </a>
                                         </div>
-                                        <input id="password" type="password" className="form-control" name="password" required />
+                                        <input onChange={onChangePassword} id="password" type="password" className="form-control" name="password" required />
                                     </div>
                                     <div className="d-flex align-items-center">
                                         <div className="form-check">
